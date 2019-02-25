@@ -15,6 +15,6 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Todolist::class, function (Faker $faker) {
     return [
-        'label' => $faker->name,
+        'label' => $faker->paragraphs($nb = 1, $asText = true),
     ];
 });

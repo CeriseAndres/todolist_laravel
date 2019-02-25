@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Todoaction extends Model
 {
     protected $fillable = [
-        'label',
+        'label', 'status_id', 'user_id', 'todolist_id', 'updated_at', 'created_at',
     ];
     public function users()
     {

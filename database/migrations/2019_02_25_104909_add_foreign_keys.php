@@ -18,32 +18,32 @@ class AddForeignKeys extends Migration
             ->onDelete('restrict')
             ->onUpdate('restrict');
             $table->foreign('todoaction_id')->references('id')->on('todoactions')
-            ->onDelete('restrict')
-            ->onUpdate('restrict');
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
         });
             Schema::table('todoactions', function(Blueprint $table) {
                 $table->foreign('todolist_id')->references('id')->on('todolists')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
                 $table->foreign('status_id')->references('id')->on('statuses')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             });
                 Schema::table('user_todolist', function(Blueprint $table) {
                     $table->foreign('user_id')->references('id')->on('users')
                     ->onDelete('restrict')
                     ->onUpdate('restrict');
                     $table->foreign('todolist_id')->references('id')->on('todolists')
-                    ->onDelete('restrict')
-                    ->onUpdate('restrict');
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
                 });
                     Schema::table('user_todoaction', function(Blueprint $table) {
                         $table->foreign('user_id')->references('id')->on('users')
                         ->onDelete('restrict')
                         ->onUpdate('restrict');
                         $table->foreign('todoaction_id')->references('id')->on('todoactions')
-                        ->onDelete('restrict')
-                        ->onUpdate('restrict');
+                        ->onDelete('cascade')
+                        ->onUpdate('cascade');
                     });
     }
     

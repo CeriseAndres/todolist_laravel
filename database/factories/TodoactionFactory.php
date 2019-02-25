@@ -15,6 +15,6 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Todoaction::class, function (Faker $faker) {
     return [
-        'label' => $faker->name,
+        'label' => str_random(10),
     ];
 });

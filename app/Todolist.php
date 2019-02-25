@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Todolist extends Model
 {
     protected $fillable = [
-        'label',
+        'label', 'updated_at', 'created_at',
     ];
     public function users()
     {

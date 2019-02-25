@@ -38,8 +38,9 @@ class DatabaseSeeder extends Seeder
 //             );
         $this->call(UsersTableSeeder::class);
         $this->call(TodolistsTableSeeder::class);
-        $this->call(TodoactionsTableSeeder::class);
         $this->call(CommentsTableSeeder::class);
+        $this->call(TodoactionsTableSeeder::class);
+        
     }
     
 }
