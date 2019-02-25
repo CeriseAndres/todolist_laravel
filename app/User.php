@@ -40,4 +40,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+    
+    //Obtenir l'id d'un user
+    public function getId($name) {
+    	$id = DB::select('select id from users where name = ?', $name);
+    	return $id;
+    }
 }
