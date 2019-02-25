@@ -13,7 +13,7 @@ class CommentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,9 @@ class CommentRequest extends FormRequest
      */
     public function rules()
     {
+       
         return [
-            //
+            'text' => 'bail|required|max:250',
         ];
     }
 }
