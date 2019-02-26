@@ -55,10 +55,20 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                	<a class="dropdown-item" href="{{ route('home') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('home-form').submit();">
+                                        {{ __('Mes Todolists') }}
+                                    </a>
+                                	<a class="dropdown-item" href="{{ route('home') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('profil-form').submit();">
+                                        {{ __('profil') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Déconnexion') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

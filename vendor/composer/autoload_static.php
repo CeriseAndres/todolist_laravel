@@ -150,6 +150,7 @@ class ComposerStaticInit5598fbfcfeee0752dd699ffea45859e6
         'B' => 
         array (
             'BeyondCode\\DumpServer\\' => 22,
+            'Bestmomo\\LaravelEmailConfirmation\\' => 34,
         ),
         'A' => 
         array (
@@ -381,6 +382,10 @@ class ComposerStaticInit5598fbfcfeee0752dd699ffea45859e6
         array (
             0 => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src',
         ),
+        'Bestmomo\\LaravelEmailConfirmation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/bestmomo/laravel-email-confirmation/src',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -430,6 +435,7 @@ class ComposerStaticInit5598fbfcfeee0752dd699ffea45859e6
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\CommentsController' => __DIR__ . '/../..' . '/app/Http/Controllers/CommentsController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\TodoactionsController' => __DIR__ . '/../..' . '/app/Http/Controllers/TodoactionsController.php',
         'App\\Http\\Controllers\\TodolistsController' => __DIR__ . '/../..' . '/app/Http/Controllers/TodolistsController.php',
         'App\\Http\\Controllers\\UsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/UsersController.php',
@@ -441,6 +447,9 @@ class ComposerStaticInit5598fbfcfeee0752dd699ffea45859e6
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Http\\Requests\\CommentRequest' => __DIR__ . '/../..' . '/app/Http/Requests/CommentRequest.php',
+        'App\\Http\\Requests\\TodoactionRequest' => __DIR__ . '/../..' . '/app/Http/Requests/TodoactionRequest.php',
+        'App\\Http\\Requests\\TodolistRequest' => __DIR__ . '/../..' . '/app/Http/Requests/TodolistRequest.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
@@ -450,6 +459,13 @@ class ComposerStaticInit5598fbfcfeee0752dd699ffea45859e6
         'App\\Todoaction' => __DIR__ . '/../..' . '/app/Todoaction.php',
         'App\\Todolist' => __DIR__ . '/../..' . '/app/Todolist.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
+        'Bestmomo\\LaravelEmailConfirmation\\Commands\\AuthCommand' => __DIR__ . '/..' . '/bestmomo/laravel-email-confirmation/src/Commands/AuthCommand.php',
+        'Bestmomo\\LaravelEmailConfirmation\\Commands\\NotificationCommand' => __DIR__ . '/..' . '/bestmomo/laravel-email-confirmation/src/Commands/NotificationCommand.php',
+        'Bestmomo\\LaravelEmailConfirmation\\Notifications\\ConfirmEmail' => __DIR__ . '/..' . '/bestmomo/laravel-email-confirmation/src/Notifications/ConfirmEmail.php',
+        'Bestmomo\\LaravelEmailConfirmation\\ServiceProvider' => __DIR__ . '/..' . '/bestmomo/laravel-email-confirmation/src/ServiceProvider.php',
+        'Bestmomo\\LaravelEmailConfirmation\\Traits\\AuthenticatesUsers' => __DIR__ . '/..' . '/bestmomo/laravel-email-confirmation/src/Traits/AuthenticatesUsers.php',
+        'Bestmomo\\LaravelEmailConfirmation\\Traits\\RegistersUsers' => __DIR__ . '/..' . '/bestmomo/laravel-email-confirmation/src/Traits/RegistersUsers.php',
+        'Bestmomo\\LaravelEmailConfirmation\\Traits\\ResetsPasswords' => __DIR__ . '/..' . '/bestmomo/laravel-email-confirmation/src/Traits/ResetsPasswords.php',
         'BeyondCode\\DumpServer\\DumpServerCommand' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',
         'BeyondCode\\DumpServer\\DumpServerServiceProvider' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/DumpServerServiceProvider.php',
         'BeyondCode\\DumpServer\\Dumper' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/Dumper.php',
