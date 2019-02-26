@@ -17,7 +17,6 @@ class CreateTodoactionsTable extends Migration
             $table->increments('id');
             $table->string('label');
             $table->integer('status_id')->unsigned()->default(1);
-            $table->integer('user_id')->unsigned();
             $table->integer('todolist_id')->unsigned();
             $table->timestamps();
         });
