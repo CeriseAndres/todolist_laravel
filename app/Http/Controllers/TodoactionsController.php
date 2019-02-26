@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\StatusesController;
 
 class TodoactionsController extends Controller
 {
@@ -14,15 +15,16 @@ class TodoactionsController extends Controller
 	public function index()
 	{
 		$todoactions = DB::select('select id,label from todoactions limit 100');
-		return view('todoactions_index')->with('todoactions', $todoactions);
+		return view('xxxxxxxxxxxxxxx')->with('todoactions', $todoactions);
 	}
 	
-	//Récupère la liste des todolists d'un user
+	//Récupère la liste des todoactions d'un user
 	public function userIndex($user_id)
 	{
-		$todoactions = DB::select('SELECT t1.id, t1.label, t1.status FROM todoactions t1 INNER JOIN user_todoaction t2 ON t1.id = t2.user_id WHERE t2.todoaction_id = ?',
+		$todoactions = DB::select('SELECT t1.id, t1.label, t1.status_id FROM todoactions t1 INNER JOIN user_todoaction t2 ON t1.id = t2.user_id WHERE t2.todoaction_id = ?',
 				$user_id);
-		return view('todolists_user')->with('todolists', $todolists);
+		$todoactions['status'] = StatusesController::getStatus($todoactions['status_id']);
+		return view('xxxxxxxxxxxxxxxxxx')->with('todoactions', $todoactions);
 	}
 	
 	/**
@@ -32,7 +34,7 @@ class TodoactionsController extends Controller
 	 */
 	public function create()
 	{
-		return view('xxxxxxxxxxxxxxxxxxxxxx');
+		//return view('xxxxxxxxxxxxxxxxxxxxxx');
 	}
 	
 	/**
@@ -41,11 +43,12 @@ class TodoactionsController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store(TodolistRequest $request)
+	public function store(TodoactionRequest $request)
 	{
-		DB::insert('insert into todolists (label) values (?)',
-				[$request->input('label'), $request->input('email')]);
-		DB::insert('insert into user_todolist (user_id, todolist_id) values (?,?)',
+		$status_id = StatusesController::getId($request->input('status'));
+		DB::insert('insert into todoactions (label, todolist_id, status_id) values (?,?,?)',
+				[$request->input('label'), $request->input('todolist_id'), $status_id]);
+		DB::insert('insert into user_todoaction (user_id, todolist_id) values (?,?)',
 				[$request->input('user_id'), DB::getPdo()->lastInsertId()]);
 		return view('xxxxxxxxxxxxxxxx')->with('label', $request->input('label'));
 	}
@@ -58,8 +61,8 @@ class TodoactionsController extends Controller
 	 */
 	public function show($id)
 	{
-		$todolist = DB::table('todolists')->where('id', $id)->get();
-		return view('xxxxxxxxxxxxxxx')->with('todolist', $todolist);
+		$todoaction = DB::table('todoactions')->where('id', $id)->get();
+		return view('xxxxxxxxxxxxxxx')->with('todoaction', $todoaction);
 	}
 	
 	/**
@@ -82,8 +85,10 @@ class TodoactionsController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
+		$status_id = StatusesController::getId($request->input('status'));
 		DB::table('todolists')->where('id', $id)->update([
-				'label' => $request->input('label')
+				'label' => $request->input('label'),
+				'status_id' => $status_id
 		]);
 		return view('xxxxxxxxxxxxxxxxxx')->with('label', $request->input('label'));
 	}
@@ -96,7 +101,7 @@ class TodoactionsController extends Controller
 	 */
 	public function destroy($id)
 	{
-		DB::table('todolists')->where('id', $id)->delete();
+		DB::table('todoactions')->where('id', $id)->delete();
 		
 	}
 }
