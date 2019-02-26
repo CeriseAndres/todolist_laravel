@@ -17,7 +17,7 @@ class TodolistsController extends Controller
 	public function index()
 	{
 		//$todolists = DB::select('select id,label,updated_at from todolists limit 100');
-		$todolists = Todolist::paginate(8);
+		$todolists = Todolist::all();
 		return view('usertodolist')->with('todolists', $todolists);
 	}
 	
@@ -26,7 +26,17 @@ class TodolistsController extends Controller
 	{
 		$todolists = DB::select('SELECT t1.id, t1.label, t1.updated_at FROM todolists t1 INNER JOIN user_todolist t2 ON t1.id = t2.todolist_id WHERE t2.user_id = ?',
 				[$user_id]);
-		return view('usertodolist')->with('todolists', $todolists);
+		foreach ($todolists as $todolist)
+		{
+			$userlist = DB::select('SELECT t1.name FROM users t1 INNER JOIN user_todolist t2 ON t1.id = t2.user_id WHERE t2.todolist_id = ?',
+					[$todolist->id]);
+			$todolist->users = array();
+			
+			foreach ($userlist as $user) {
+				array_push($todolist->users, $user);
+			}
+		}
+		return view('usertodolist')->with(['todolists' => $todolists]);
 	}
 	
 	/**

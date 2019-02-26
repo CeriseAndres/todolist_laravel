@@ -2,12 +2,14 @@
 
 @section('content')
 
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-		<strong>{{ session('status') }}</strong>Vous êtes connecté {{ Auth::user()->name }}
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
+@if (session('status'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+	<strong>{{ session('status') }}</strong>Vous êtes connecté {{ Auth::user()->name }}
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+@endif
 
 <div class="container">
 	
@@ -25,10 +27,12 @@
                 				<div class="card-header">{{ $todolist->label }}</div>
 								<div class="card-body">
 									<ul>
-										<li></li>
+										@foreach ($todolist->users as $user)
+											<li>{{ $user->name }}</li>
+										@endforeach
 									</ul>
 								</div>
-								<small>{{ $todolist->updated_at }}</small>
+								<small>Dernière MAJ {{ $todolist->updated_at }}</small>
 							</div>
                     	</div>
                     	@endforeach
