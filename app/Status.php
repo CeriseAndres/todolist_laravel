@@ -13,4 +13,10 @@ class Status extends Model
     {
         return $this->hasMany(Todoaction::class);
     }
+    
+    //Obtenir le label d'un status
+    public function getLabel($id) {
+    	$label = DB::select('select label from statuses where id = ?', $id);
+    	return $label;
+    }
 }

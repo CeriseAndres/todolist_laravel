@@ -21,7 +21,7 @@ class AddForeignKeys extends Migration
             ->onDelete('cascade')
             ->onUpdate('cascade');
         });
-            Schema::table('todoactions', function(Blueprint $table) {
+          	Schema::table('todoactions', function(Blueprint $table) {
                 $table->foreign('todolist_id')->references('id')->on('todolists')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

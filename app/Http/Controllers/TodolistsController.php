@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class TodolistsController extends Controller
 {
@@ -14,7 +15,15 @@ class TodolistsController extends Controller
 	public function index()
 	{
 		$todolists = DB::select('select id,label from todolists limit 100');
-		return view('listTodolists')->with('todolists', $todolists);
+		return view('todolists_index')->with('todolists', $todolists);
+	}
+	
+	//Récupère la liste des todolists d'un user
+	public function userIndex($user_id)
+	{
+		$todolists = DB::select('SELECT t1.id, t1.label FROM todolists t1 INNER JOIN user_todolist t2 ON t1.id = t2.todolist_id WHERE t2.user_id = ?',
+				$user_id);
+		return view('todolists_user')->with('todolists', $todolists);
 	}
 	
 	/**
@@ -37,6 +46,8 @@ class TodolistsController extends Controller
 	{
 		DB::insert('insert into todolists (label) values (?)',
 				[$request->input('label'), $request->input('email')]);
+		DB::insert('insert into user_todolist (user_id, todolist_id) values (?,?)',
+				[$request->input('user_id'), DB::getPdo()->lastInsertId()]);
 		return view('xxxxxxxxxxxxxxxx')->with('label', $request->input('label'));
 	}
 	
@@ -48,8 +59,8 @@ class TodolistsController extends Controller
 	 */
 	public function show($id)
 	{
-		$user = DB::table('users')->where('id', $id)->get();
-		return view('userProfile')->with('user', $user);
+		$todolist = DB::table('todolists')->where('id', $id)->get();
+		return view('xxxxxxxxxxxxxxx')->with('todolist', $todolist);
 	}
 	
 	/**
@@ -60,7 +71,7 @@ class TodolistsController extends Controller
 	 */
 	public function edit($id)
 	{
-		return view('updateRegistration');
+		return view('xxxxxxxxxxxxxxxxxxxxx');
 	}
 	
 	/**
@@ -72,12 +83,10 @@ class TodolistsController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
-		DB::table('users')->where('id', $id)->update([
-				'name' => $request->input('firstName').' '.$request->input('lastName'),
-				'email' => $request->input('email'),
-				'password' => $request->input('password')
+		DB::table('todolists')->where('id', $id)->update([
+				'label' => $request->input('label')
 		]);
-		return view('validatedRegistrationUpdate')->with('name', $request->input('firstName').' '.$request->input('lastName'));
+		return view('xxxxxxxxxxxxxxxxxx')->with('label', $request->input('label'));
 	}
 	
 	/**
@@ -88,7 +97,7 @@ class TodolistsController extends Controller
 	 */
 	public function destroy($id)
 	{
-		DB::table('users')->where('id', $id)->delete();
+		DB::table('todolists')->where('id', $id)->delete();
 		
 	}
 }

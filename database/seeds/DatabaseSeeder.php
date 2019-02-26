@@ -16,31 +16,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-//         Status::create(
-//             [
-//                 'label' => 'A faire',
-//             ]
-//             );
-//         Status::create(
-//             [
-//                 'label' => 'En cours',
-//             ]
-//             );
-//         Status::create(
-//             [
-//                 'label' => 'Achevé',
-//             ]
-//             );
-//         Status::create(
-//             [
-//                 'label' => 'Archivé',
-//             ]
-//             );
+    	$this->call(StatusesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(TodolistsTableSeeder::class);
         $this->call(CommentsTableSeeder::class);
         $this->call(TodoactionsTableSeeder::class);
-        
+        $this->call(UserTodolistTableSeeder::class);
+        $this->call(UserTodoactionTableSeeder::class);
     }
     
 }
