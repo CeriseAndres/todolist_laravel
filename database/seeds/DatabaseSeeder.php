@@ -19,10 +19,10 @@ class DatabaseSeeder extends Seeder
     	$this->call(StatusesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(TodolistsTableSeeder::class);
-        $this->call(CommentsTableSeeder::class);
         $this->call(TodoactionsTableSeeder::class);
         $this->call(UserTodolistTableSeeder::class);
         $this->call(UserTodoactionTableSeeder::class);
+        $this->call(CommentsTableSeeder::class);
     }
     
 }
