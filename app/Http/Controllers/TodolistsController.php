@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Todolist;
+use Illuminate\Support\Facades\DB;
 
 class TodolistsController extends Controller
 {
@@ -14,16 +16,17 @@ class TodolistsController extends Controller
 	 */
 	public function index()
 	{
-		$todolists = DB::select('select id,label from todolists limit 100');
-		return view('todolists_index')->with('todolists', $todolists);
+		//$todolists = DB::select('select id,label,updated_at from todolists limit 100');
+		$todolists = Todolist::paginate(8);
+		return view('usertodolist')->with('todolists', $todolists);
 	}
 	
 	//Récupère la liste des todolists d'un user
 	public function userIndex($user_id)
 	{
-		$todolists = DB::select('SELECT t1.id, t1.label FROM todolists t1 INNER JOIN user_todolist t2 ON t1.id = t2.todolist_id WHERE t2.user_id = ?',
-				$user_id);
-		return view('todolists_user')->with('todolists', $todolists);
+		$todolists = DB::select('SELECT t1.id, t1.label, t1.updated_at FROM todolists t1 INNER JOIN user_todolist t2 ON t1.id = t2.todolist_id WHERE t2.user_id = ?',
+				[$user_id]);
+		return view('usertodolist')->with('todolists', $todolists);
 	}
 	
 	/**

@@ -18,3 +18,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('/users', 'UsersController');
+Route::resource('/todolists', 'TodolistsController');
+Route::resource('/todoactions', 'TodoactionsController');
+Route::resource('/comments', 'TodolistsController');
+
+Route::get('mes-listes/{id}', 'TodolistsController@userIndex')->name('mes-listes');
+
