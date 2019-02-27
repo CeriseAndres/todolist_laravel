@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\StatusesController;
+use App\User;
+use App\Status;
+use Illuminate\Support\Facades\DB;
 
 class TodoactionsController extends Controller
 {
@@ -14,17 +17,58 @@ class TodoactionsController extends Controller
 	 */
 	public function index()
 	{
-		$todoactions = DB::select('select id,label from todoactions limit 100');
+		$todoactions = DB::select('select id,label,updated_at from todoactions limit 100');
 		return view('xxxxxxxxxxxxxxx')->with('todoactions', $todoactions);
 	}
 	
-	//Récupère la liste des todoactions d'un user
+	//Récupère la liste des todoactions d'une todolist, le noms des users associés et le status des taches
+	public function todolistIndex($todolist_id)
+	{
+		$todoactions = DB::select('SELECT id, label, status_id, updated_at FROM todoactions WHERE todolist_id = ?',
+				[$todolist_id]);
+		
+		foreach ($todoactions as $todoaction)
+		{
+			//$status = new Status($todoaction->status_id);
+			
+			//$todoaction->status = $status->label;
+			
+			$userlist = DB::select('SELECT t1.name FROM users t1 INNER JOIN user_todoaction t2 ON t1.id = t2.user_id WHERE t2.todoaction_id = ?',
+					[$todoaction->id]);
+			$todoaction->users = array();
+			
+			foreach ($userlist as $user)
+			{
+				array_push($todoaction->users, $user);
+			}
+		}
+		
+		return view('todoactions')->with(['todoactions' => $todoactions, 'todolist_id' => $todolist_id]);
+	}
+	
+	//Récupère la liste des todoactions d'un user, le noms des users associés et le status des taches
 	public function userIndex($user_id)
 	{
-		$todoactions = DB::select('SELECT t1.id, t1.label, t1.status_id FROM todoactions t1 INNER JOIN user_todoaction t2 ON t1.id = t2.user_id WHERE t2.todoaction_id = ?',
-				$user_id);
-		$todoactions['status'] = StatusesController::getStatus($todoactions['status_id']);
-		return view('xxxxxxxxxxxxxxxxxx')->with('todoactions', $todoactions);
+		$todoactions = DB::select('SELECT t1.id, t1.label, t1.status_id, t1.updated_at FROM todoactions t1 INNER JOIN user_todoaction t2 ON t1.id = t2.user_id WHERE t2.todoaction_id = ?',
+				[$user_id]);
+		
+		foreach ($todoactions as $todoaction)
+		{
+			//$status = new Status($todoaction->status_id);
+			
+			//$todoaction->status = $status->label;
+			
+			$userlist = DB::select('SELECT t1.name FROM users t1 INNER JOIN user_todoaction t2 ON t1.id = t2.user_id WHERE t2.todoaction_id = ?',
+					[$todoaction->id]);
+			$todoaction->users = array();
+			
+			foreach ($userlist as $user)
+			{
+				array_push($todoaction->users, $user);
+			}
+		}
+		
+		return view('todoactions')->with('todoactions', $todoactions);
 	}
 	
 	/**

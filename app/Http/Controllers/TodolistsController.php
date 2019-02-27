@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\TodolistRequest;
 use App\User;
+use App\Todolist;
+use Illuminate\Support\Facades\DB;
 
 class TodolistsController extends Controller
 {
@@ -14,16 +17,28 @@ class TodolistsController extends Controller
 	 */
 	public function index()
 	{
-		$todolists = DB::select('select id,label from todolists limit 100');
-		return view('todolists_index')->with('todolists', $todolists);
+		//$todolists = DB::select('select id,label,updated_at from todolists limit 100');
+		$todolists = Todolist::all();
+		return view('usertodolist')->with('todolists', $todolists);
 	}
 	
-	//Récupère la liste des todolists d'un user
+	//Récupère la liste des todolists d'un user et les noms des users associés
 	public function userIndex($user_id)
 	{
-		$todolists = DB::select('SELECT t1.id, t1.label FROM todolists t1 INNER JOIN user_todolist t2 ON t1.id = t2.todolist_id WHERE t2.user_id = ?',
-				$user_id);
-		return view('todolists_user')->with('todolists', $todolists);
+		$todolists = DB::select('SELECT t1.id, t1.label, t1.updated_at FROM todolists t1 INNER JOIN user_todolist t2 ON t1.id = t2.todolist_id WHERE t2.user_id = ?',
+				[$user_id]);
+		foreach ($todolists as $todolist)
+		{
+			$userlist = DB::select('SELECT t1.name FROM users t1 INNER JOIN user_todolist t2 ON t1.id = t2.user_id WHERE t2.todolist_id = ?',
+					[$todolist->id]);
+			$todolist->users = array();
+			
+			foreach ($userlist as $user)
+			{
+				array_push($todolist->users, $user);
+			}
+		}
+		return view('todolists')->with(['todolists' => $todolists]);
 	}
 	
 	/**
@@ -33,7 +48,7 @@ class TodolistsController extends Controller
 	 */
 	public function create()
 	{
-		return view('xxxxxxxxxxxxxxxxxxxxxx');
+		return view('add_todolist')->with(['id' => 1,'users' => User::all()]);
 	}
 	
 	/**
@@ -45,10 +60,12 @@ class TodolistsController extends Controller
 	public function store(TodolistRequest $request)
 	{
 		DB::insert('insert into todolists (label) values (?)',
-				[$request->input('label'), $request->input('email')]);
+				[$request->input('label')]);
+		
 		DB::insert('insert into user_todolist (user_id, todolist_id) values (?,?)',
 				[$request->input('user_id'), DB::getPdo()->lastInsertId()]);
-		return view('xxxxxxxxxxxxxxxx')->with('label', $request->input('label'));
+		
+		$this->userIndex($request->input('user_id'));
 	}
 	
 	/**

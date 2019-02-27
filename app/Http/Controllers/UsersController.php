@@ -23,7 +23,7 @@ class UsersController extends Controller
 	{
 		$users = DB::select('SELECT t1.id, t1.name, t1.email FROM users t1 INNER JOIN user_todolist t2 ON t1.id = t2.user_id WHERE t2.todolist_id = ?',
 				$todolist_id);
-		return view('xxxxxxxxxxxxxxxxx')->with('users', $users);
+		return $users;
 	}
 	
 	/**
