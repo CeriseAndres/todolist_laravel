@@ -25,4 +25,5 @@ Route::resource('/todoactions', 'TodoactionsController');
 Route::resource('/comments', 'TodolistsController');
 
 Route::get('mes-listes/{id}', 'TodolistsController@userIndex')->name('mes-listes');
+Route::get('mes-taches/{id}', 'TodoactionsController@userIndex')->name('mes-actions');
 

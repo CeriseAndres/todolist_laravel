@@ -21,7 +21,7 @@ class TodolistsController extends Controller
 		return view('usertodolist')->with('todolists', $todolists);
 	}
 	
-	//Récupère la liste des todolists d'un user
+	//Récupère la liste des todolists d'un user et les noms des users associés
 	public function userIndex($user_id)
 	{
 		$todolists = DB::select('SELECT t1.id, t1.label, t1.updated_at FROM todolists t1 INNER JOIN user_todolist t2 ON t1.id = t2.todolist_id WHERE t2.user_id = ?',
@@ -32,11 +32,12 @@ class TodolistsController extends Controller
 					[$todolist->id]);
 			$todolist->users = array();
 			
-			foreach ($userlist as $user) {
+			foreach ($userlist as $user)
+			{
 				array_push($todolist->users, $user);
 			}
 		}
-		return view('usertodolist')->with(['todolists' => $todolists]);
+		return view('todolists')->with(['todolists' => $todolists]);
 	}
 	
 	/**
