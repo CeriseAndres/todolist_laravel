@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
 Route::resource('/users', 'UsersController');
 Route::resource('/todolists', 'TodolistsController');
 Route::resource('/todoactions', 'TodoactionsController');
@@ -31,4 +32,7 @@ Route::delete('mes-listes/{todolist_id}', 'TodolistsController@destroy')->middle
 
 
 Route::get('mes-taches/{id}', 'TodoactionsController@todolistIndex')->name('show_todoactions');
+
+//Essai Destroy par Api :{
+Route::namespace('Api')->get('api/users/{user}/destroy', 'Api\UserController@destroyForm');
 
