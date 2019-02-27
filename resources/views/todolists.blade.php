@@ -43,8 +43,6 @@
                     		<div class="card mb-3">
                 				<div class="card-header">{{ $todolist->label }}
                 				
-<!--                 				<a href="{{ route('delete_todolist', ['id' => $todolist->id, 'user_id' => Auth::id()]) }}" class="badge badge-pill badge-secondary">X</a> -->
-                				
                 				<form action="{{ route('todolists.destroy', ['todolist_id' => $todolist->id]) }}" method="post">
                 					<input type="hidden" name="label" value="{{ $todolist->label }}">
                 					{{ method_field('delete') }}
@@ -60,7 +58,7 @@
 										@endforeach
 									</ul>
 								</div>
-								<a href="{{ route('show_todoactions', ['id' => $todolist->id]) }}"><button type="button" class="btn btn-outline-info mx-2">Détail</button></a>
+								<a href="{{ route('show_todolist_detail', ['todolist_id' => $todolist->id]) }}"><button type="button" class="btn btn-outline-info mx-2">Détail</button></a>
 								<small class="text-center">Dernière MAJ {{ $todolist->updated_at }}</small>
 							</div>
                     	</div>

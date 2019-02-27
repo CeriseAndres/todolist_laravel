@@ -116,11 +116,7 @@ class TodolistsController extends Controller
 	{
 		DB::table('user_todolist')->where('todolist_id', $todolist->id)->delete();
 		
-		//$todolist = Todolist::findOrFail($todolist_id);
-		//if($todolist) {
-			$todolist->delete();
-		//}
-		//DB::table('todolists')->where('id', $todolist_id)->delete();
+		$todolist->delete();
 		
 		return back()->with(['del-ok'=> __('La liste '.$todolist->label.' a bien été supprimée')]);
 	}

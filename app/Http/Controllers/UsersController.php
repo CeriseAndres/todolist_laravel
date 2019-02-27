@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Todolist;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {

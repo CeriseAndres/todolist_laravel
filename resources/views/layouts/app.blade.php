@@ -59,9 +59,7 @@
                                        >
                                         {{ __('Mes Todolists') }}
                                     </a>
-                                    <a class="dropdown-item" href=""
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('home-form').submit();">
+                                    <a class="dropdown-item" href="{{ route('show_todoactions', ['id' => Auth::id() ]) }}">
                                         {{ __('Mes Tâches') }}
                                     </a>
                                 	<a class="dropdown-item" href="{{ route('home') }}"

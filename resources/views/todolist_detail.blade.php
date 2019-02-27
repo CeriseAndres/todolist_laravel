@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
     	<div class="col-md-11">
     		<div class="card">
-                <div class="card-header">Mes Tâches</div>
+                <div class="card-header"><a href="{{ route('show_todolists', ['id' => Auth::id()]) }}" class="badge badge-pill badge-secondary pt-1 pr-1">	&lt;</a>{{ $todolist_id }}</div>
 
                 <div class="card-body">
                     
