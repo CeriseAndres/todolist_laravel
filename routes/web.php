@@ -19,4 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
+//générer les routes vers les 7 méthodes du contrôleur de ressource
+//Route::resource('users', 'UserController');
+Route::namespace('Api')->get('api/users/{user}/destroy', 'Api\UserController@destroyForm');
