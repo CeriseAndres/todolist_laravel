@@ -19,7 +19,7 @@
 								<div class="card-body">
 									<p class="text-center">{{ $todoaction->status }}</p>
 									<ul>
-										@foreach ($todoaction->users as $users)
+										@foreach ($todoaction->users as $user)
 											<li>{{ $user->name }}</li>
 										@endforeach
 									</ul>
@@ -29,9 +29,7 @@
 							</div>
                     	</div>
                     	@endforeach
-                    </div>
-
-                    
+                    </div>                    
                 </div>
             </div>
         </div>

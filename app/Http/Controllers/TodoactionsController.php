@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\StatusesController;
 use App\User;
+use App\Status;
 use Illuminate\Support\Facades\DB;
 
 class TodoactionsController extends Controller
@@ -28,7 +29,10 @@ class TodoactionsController extends Controller
 		
 		foreach ($todoactions as $todoaction)
 		{
-			$todoaction->status = StatusesController::getStatus($todoaction->status_id);
+			$status = new Status($todoaction->status_id);
+			
+			$todoaction->status = $status->label;
+			
 			$userlist = DB::select('SELECT t1.name FROM users t1 INNER JOIN user_todoaction t2 ON t1.id = t2.user_id WHERE t2.todoaction_id = ?',
 					[$todoaction->id]);
 			$todoaction->users = array();
