@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\TodolistRequest;
 use App\User;
 use App\Todolist;
 use Illuminate\Support\Facades\DB;
@@ -47,7 +48,7 @@ class TodolistsController extends Controller
 	 */
 	public function create()
 	{
-		return view('xxxxxxxxxxxxxxxxxxxxxx');
+		return view('add_todolist')->with(['id' => 1,'users' => User::all()]);
 	}
 	
 	/**
@@ -59,10 +60,12 @@ class TodolistsController extends Controller
 	public function store(TodolistRequest $request)
 	{
 		DB::insert('insert into todolists (label) values (?)',
-				[$request->input('label'), $request->input('email')]);
+				[$request->input('label')]);
+		
 		DB::insert('insert into user_todolist (user_id, todolist_id) values (?,?)',
 				[$request->input('user_id'), DB::getPdo()->lastInsertId()]);
-		return view('xxxxxxxxxxxxxxxx')->with('label', $request->input('label'));
+		
+		$this->userIndex($request->input('user_id'));
 	}
 	
 	/**

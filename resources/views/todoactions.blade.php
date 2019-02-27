@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
     	<div class="col-md-11">
     		<div class="card">
-                <div class="card-header">To-Do List</div>
+                <div class="card-header"><a href="{{ route('show_todolists', ['id' => 1]) }}" class="badge badge-pill badge-secondary pt-1 pr-1">	&lt;</a>{{ $todolist_id }}</div>
 
                 <div class="card-body">
                     
@@ -17,7 +17,7 @@
                     		<div class="card mb-3">
                 				<div class="card-header">{{ $todoaction->label }}<a href="#" class="badge badge-pill badge-secondary">X</a></div>
 								<div class="card-body">
-									<p class="text-center">{{ $todoaction->status }}</p>
+									<p class="text-center">{{ $todoaction->status_id }}</p>
 									<ul>
 										@foreach ($todoaction->users as $user)
 											<li>{{ $user->name }}</li>

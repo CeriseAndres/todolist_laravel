@@ -25,6 +25,7 @@ class TodolistRequest extends FormRequest
     {
         return [
             'label' => 'bail|required|max:250',
+        	'user_id' => 'bail|required|integer',
         ];
     }
 }
