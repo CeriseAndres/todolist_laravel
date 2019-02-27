@@ -11,6 +11,24 @@
 </div>
 @endif
 
+@if (session('add-ok'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+	<strong>{{ session('add-ok') }}</strong>
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+@endif
+
+@if (session('del-ok'))
+<div class="alert alert-secondary alert-dismissible fade show" role="alert">
+	<strong>{{ session('del-ok') }}</strong>
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+@endif
+
 <div class="container">	
     <div class="row justify-content-center">
     	<div class="col-md-11">
@@ -23,7 +41,18 @@
                     	@foreach ($todolists as $todolist)
                     	<div class="col-md-3">
                     		<div class="card mb-3">
-                				<div class="card-header">{{ $todolist->label }}<a href="#" class="badge badge-pill badge-secondary pt-1 pr-1">X</a></div>
+                				<div class="card-header">{{ $todolist->label }}
+                				
+<!--                 				<a href="{{ route('delete_todolist', ['id' => $todolist->id, 'user_id' => Auth::id()]) }}" class="badge badge-pill badge-secondary">X</a> -->
+                				
+                				<form action="{{ route('todolists.destroy', ['todolist_id' => $todolist->id]) }}" method="post">
+                					<input type="hidden" name="label" value="{{ $todolist->label }}">
+                					{{ method_field('delete') }}
+                					@csrf
+                					<button type="submit" class="badge badge-pill badge-secondary pt-1 pr-1">X</button>
+                				</form>
+                				
+                				</div>
 								<div class="card-body">
 									<ul>
 										@foreach($todolist->users as $user)
@@ -40,14 +69,14 @@
                     		<div class="card mb-3">
                 				<div class="card-header">Nouvelle To-Do List</div>
 								<div class="card-body">
-									<form method="POST" action="{{ route('add_todolist') }}">
+									<form method="POST" action="{{ route('add_todolist', ['id' => Auth::id()]) }}">
                         				@csrf
 
                         					<div class="form-group row">
-                            					<label for="label" class="col-md-4 col-form-label text-md-right">Titre</label>
+                            					<label for="label" class="col-md-12 col-form-label text-md-center">Titre</label>
 
-                            					<div class="col-md-6">
-                                					<input id="label" type="text" class="form-control{{ $errors->has('label') ? ' is-invalid' : '' }}" name="label" value="{{ old('label') }}" required autofocus>
+                            					<div class="col-md-12">
+                                					<input id="label" type="text" class="form-control{{ $errors->has('label') ? ' is-invalid' : '' }}" name="label" value="{{ old('label') }}" required>
 
                                 				@if ($errors->has('label'))
                                     			<span class="invalid-feedback" role="alert">
@@ -57,18 +86,18 @@
                             					</div>
                         					</div>
                         
-                        					<input type="hidden" class="form-control{{ $errors->has('user_id') ? ' is-invalid' : '' }}" name="user_id" value="{{ $id }}">
+                        					<input type="hidden" class="form-control{{ $errors->has('user_id') ? ' is-invalid' : '' }}" name="user_id" value="{{ Auth::id() }}">
 
                         					<div class="form-group row mb-0">
-                            					<div class="col-md-8 offset-md-4">
-                                					<button type="submit" class="btn btn-primary">
+                            					<div class="col-md-12 offset-md-4">
+                                					<button type="submit" class="btn btn-outline-info m-2">
                                     					Ajouter
                                 					</button>
                             					</div>
                         					</div>
                     				</form>
 								</div>
-								<a href="{{ route('add_todolist') }}"><button type="button" class="btn btn-outline-info m-2">Créer</button></a>
+								
 							</div>
                     	</div>
                     </div>

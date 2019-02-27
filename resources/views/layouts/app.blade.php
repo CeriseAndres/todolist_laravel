@@ -55,15 +55,19 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                	<a class="dropdown-item" href="{{ route('home') }}"
+                                	<a class="dropdown-item" href="{{ route('show_todolists', ['id' => Auth::id() ]) }}"
+                                       >
+                                        {{ __('Mes Todolists') }}
+                                    </a>
+                                    <a class="dropdown-item" href=""
                                        onclick="event.preventDefault();
                                                      document.getElementById('home-form').submit();">
-                                        {{ __('Mes Todolists') }}
+                                        {{ __('Mes Tâches') }}
                                     </a>
                                 	<a class="dropdown-item" href="{{ route('home') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('profil-form').submit();">
-                                        {{ __('profil') }}
+                                        {{ __('Profil') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

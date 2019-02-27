@@ -17,12 +17,12 @@ class StatusesTableSeeder extends Seeder
 			'label' => 'A faire',
     			            ]
     	            );
-    	        Status::create(
+    	Status::create(
     	            [
     	                'label' => 'En cours',
     	            ]
     	            );
-    	        Status::create(
+    	Status::create(
     			            [
     					                'label' => 'Achevé',
     	            ]

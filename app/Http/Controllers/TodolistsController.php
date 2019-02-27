@@ -65,7 +65,7 @@ class TodolistsController extends Controller
 		DB::insert('insert into user_todolist (user_id, todolist_id) values (?,?)',
 				[$request->input('user_id'), DB::getPdo()->lastInsertId()]);
 		
-		$this->userIndex($request->input('user_id'));
+		return back()->with('add-ok', __('La liste '.$request->input('label').' a bien été ajoutée'));
 	}
 	
 	/**
@@ -112,9 +112,16 @@ class TodolistsController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy($id)
+	public function destroy(Todolist $todolist)
 	{
-		DB::table('todolists')->where('id', $id)->delete();
+		DB::table('user_todolist')->where('todolist_id', $todolist->id)->delete();
 		
+		//$todolist = Todolist::findOrFail($todolist_id);
+		//if($todolist) {
+			$todolist->delete();
+		//}
+		//DB::table('todolists')->where('id', $todolist_id)->delete();
+		
+		return back()->with(['del-ok'=> __('La liste '.$todolist->label.' a bien été supprimée')]);
 	}
 }
