@@ -61,9 +61,17 @@
                 				
                 				</div>
 								<div class="card-body">
+									<p class="text-center mt-2">Utilisateurs : </p>
 									<ul>
 										@foreach($todolist->users as $user)
-											<li>{{ $user->name }}</li>
+											<li>{{ $user->name }}
+												<form action="{{ route('todolistsUserDestroy', ['id' => $todolist->id]) }}" method="post">
+                									<input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                									{{ method_field('delete') }}
+                									@csrf
+                									<button type="submit" class="badge badge-pill badge-secondary pt-1 pr-1">X</button>
+                								</form>
+											</li>
 										@endforeach
 									</ul>
 								</div>

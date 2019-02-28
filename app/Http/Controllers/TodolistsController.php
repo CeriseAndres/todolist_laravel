@@ -121,4 +121,12 @@ class TodolistsController extends Controller
 		
 		return back()->with(['del-ok'=> __('La liste '.$todolist->label.' a bien été supprimée')]);
 	}
+	
+	public function deleteUser(Request $request, $id)
+	{
+		DB::table('user_todolist')->where('user_id', $request->input('user_id'))->where('todolist_id', $id)->delete();
+		
+		return back()->with(['del-ok'=> __('L\'utilisateur a bien été retiré de la liste')]);
+		
+	}
 }

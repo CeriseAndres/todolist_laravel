@@ -27,6 +27,7 @@ Route::resource('/comments', 'CommentsController')->middleware('auth');
 
 Route::get('mes-listes/{id}', 'TodolistsController@userIndex')->middleware('auth')->name('show_todolists');
 Route::post('mes-listes/{id}', 'TodolistsController@store')->middleware('auth')->name('add_todolist');
+Route::delete('mes-listes/{id}', 'TodolistsController@deleteUser')->middleware('auth')->name('todolistsUserDestroy');
 
 //Essai Destroy par Api :{
 Route::namespace('Api')->get('api/users/{user}/destroy', 'Api\UserController@destroyForm');

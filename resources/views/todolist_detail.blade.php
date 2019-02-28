@@ -78,6 +78,7 @@
 											</li>
 										@endforeach
 									</ul>
+									
 								</div>
 								<button type="button" class="btn btn-outline-info mx-2 btn-sm"><a href="{{ route('show_todoaction_comments', ['todoaction_id' => $todoaction->id]) }}">Commentaires</a></button>
 								<button type="button" class="btn btn-outline-secondary btn-sm mx-2 mt-1" data-toggle="modal" data-target="#exampleModal{{ $todoaction->id }}">Modifier</button>
