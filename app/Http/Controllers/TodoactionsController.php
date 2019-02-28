@@ -131,12 +131,12 @@ class TodoactionsController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
-		$status_id = StatusesController::getId($request->input('status'));
-		DB::table('todolists')->where('id', $id)->update([
+		DB::table('todoactions')->where('id', $id)->update([
 				'label' => $request->input('label'),
-				'status_id' => $status_id
+				//'status_id' => $request->input(''),
+				'updated_at' => now()
 		]);
-		return view('xxxxxxxxxxxxxxxxxx')->with('label', $request->input('label'));
+		return back()->with(['update-ok'=> __('La tâche '.$request->input('label').' a bien été mise à jour')]);
 	}
 	
 	/**

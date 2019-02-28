@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Comment;
+use Illuminate\Support\Facades\DB;
+use App\Todoaction;
+use App\Http\Requests\CommentRequest;
 
 class CommentsController extends Controller
 {
@@ -20,17 +25,33 @@ class CommentsController extends Controller
 	//Récupère la liste des comments d'un user
 	public function userIndex($user_id)
 	{
-		$comments = DB::select('SELECT id, text FROM comments WHERE user_id = ?',
-				$user_id);
-		return view('xxxxxxxxxxxxxxxxx')->with('comments', $comments);
+		$comments = DB::table('comments')->where('user_id', $user_id)->get();
+		
+		foreach ($comments as $comment)
+		{
+			$todoaction = DB::table('todoactions')->where('id', $comment->todoaction_id)->get();
+			
+			$comment->todoaction = $todoaction;
+			
+		}
+		return view('comments')->with('comments', $comments);
 	}
 	
 	//Récupère la liste des comments d'une todoaction
 	public function todoactionIndex($todoaction_id)
 	{
-		$comments = DB::select('SELECT id, text FROM comments WHERE todoaction_id = ?',
-				$todoaction_id);
-		return view('xxxxxxxxxxxxxxxxx')->with('comments', $comments);
+		$comments = DB::table('comments')->where('todoaction_id', $todoaction_id)->get();
+		
+		$todoaction_label = DB::select('SELECT label from todoactions where id = ?', [$todoaction_id]);
+		
+		foreach ($comments as $comment)
+		{
+			$user = DB::table('users')->where('id', $comment->user_id)->get();
+			
+			$comment->user = $user;
+			
+		}
+		return view('todoaction_comments')->with(['comments' => $comments, 'todoaction_label' => $todoaction_label]);
 	}
 	
 	/**
@@ -86,14 +107,14 @@ class CommentsController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, $id)
+	public function update(CommentRequest $request, $id)
 	{
 		DB::table('comments')->where('id', $id)->update([
 				'text' => $request->input('text'),
 				'updated_at' => now()
 		]);
-		$comment = DB::table('comments')->where('id', $id)->get();
-		return view('xxxxxxxxxxx')->with('comment', $comment);
+// 		$comment = DB::table('comments')->where('id', $id)->get();
+		return back()->with(['update-ok'=> __('Le commentaire n° '.$id.' a bien été mis à jour')]);
 	}
 	
 	/**
@@ -103,8 +124,10 @@ class CommentsController extends Controller
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy($id)
-	{
-		DB::table('comments')->where('id', $id)->delete();
-		
+	{		
+		DB::table('comments')->where('id', $id)
+							->delete();		
+	
+		return back()->with(['del-ok'=> __('Le commentaire n° '.$id.' a bien été supprimé')]);
 	}
 }
