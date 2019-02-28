@@ -30,6 +30,7 @@
                 						{{ method_field('delete') }}
                 						@csrf
                 					<button type="submit" class="badge badge-pill badge-secondary pt-1 pr-1">X</button>
+                					</form>
                 				</div>
 								<div class="card-body">
 									<p class="text-center">Todolist : <a href="{{ route('show_todolist_detail', ['todolist_id' => $todoaction->todolist_id]) }}">{{ $todoaction->todolist[0]->label }}</a></p>

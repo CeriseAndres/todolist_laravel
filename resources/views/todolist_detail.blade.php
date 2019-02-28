@@ -28,8 +28,8 @@
                 						<input type="hidden" name="label" value="{{ $todoaction->label }}">
                 						{{ method_field('delete') }}
                 						@csrf
-                					<button type="submit" class="badge badge-pill badge-secondary pt-1 pr-1">X</button>
-                				</form>
+                						<button type="submit" class="badge badge-pill badge-secondary pt-1 pr-1">X</button>
+                					</form>
 								</div>
 								<div class="card-body">
 									<p class="text-center">Status : </p>

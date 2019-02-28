@@ -88,7 +88,7 @@ class TodolistsController extends Controller
 	 */
 	public function edit($id)
 	{
-		return view('xxxxxxxxxxxxxxxxxxxxx');
+		//
 	}
 	
 	/**
@@ -101,9 +101,10 @@ class TodolistsController extends Controller
 	public function update(Request $request, $id)
 	{
 		DB::table('todolists')->where('id', $id)->update([
-				'label' => $request->input('label')
+				'label' => $request->input('label'),
+				'updated_at' => now()
 		]);
-		return view('xxxxxxxxxxxxxxxxxx')->with('label', $request->input('label'));
+		return back()->with(['update-ok'=> __('La liste '.$request->input('label').' a bien été mise à jour')]);
 	}
 	
 	/**
