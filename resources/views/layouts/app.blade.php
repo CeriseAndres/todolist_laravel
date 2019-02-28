@@ -65,9 +65,7 @@
                                     <a class="dropdown-item" href="{{ route('show_comments', ['id' => Auth::id() ]) }}">
                                         {{ __('Mes Commentaires') }}
                                     </a>
-                                	<a class="dropdown-item" href="{{ route('home') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('profil-form').submit();">
+                                	<a class="dropdown-item" href="{{ route('users.show', ['id' => Auth::id() ]) }}">
                                         {{ __('Profil') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
