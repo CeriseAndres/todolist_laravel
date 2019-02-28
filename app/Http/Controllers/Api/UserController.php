@@ -24,7 +24,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('create');
+        return view('api/create');
     }
     
     public function store(Request $request)
@@ -51,7 +51,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('edit', compact('user'));
+        return view('api/edit', compact('user'));
     }
     
     public function update(Request $request, User $user)
@@ -73,6 +73,6 @@ class UserController extends Controller
     
     public function destroyForm(User $user)
     {
-        return view('destroy', compact('user'));
+        return view('api/destroy', compact('user'));
     }
 }
