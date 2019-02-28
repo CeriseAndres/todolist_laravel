@@ -29,6 +29,8 @@ class TodoactionsController extends Controller
 		$todoactions = DB::select('SELECT id, label, status_id, updated_at FROM todoactions WHERE todolist_id = ?',
 				[$todolist_id]);
 		
+		$todolist_label = DB::select('SELECT label from todolists where id = ?', [$todolist_id]);
+		
 		foreach ($todoactions as $todoaction)
 		{
 			$todoaction->status = DB::select('SELECT label from statuses where id = ?', [$todoaction->status_id]);
@@ -43,18 +45,20 @@ class TodoactionsController extends Controller
 			}
 		}
 		
-		return view('todolist_detail')->with(['todoactions' => $todoactions, 'todolist_id' => $todolist_id]);
+		return view('todolist_detail')->with(['todoactions' => $todoactions, 'todolist_id' => $todolist_id, 'todolist_label' => $todolist_label]);
 	}
 	
 	//Récupère la liste des todoactions d'un user, le noms des users associés et le status des taches
 	public function userIndex($user_id)
 	{
-		$todoactions = DB::select('SELECT t1.id, t1.label, t1.status_id, t1.updated_at FROM todoactions t1 INNER JOIN user_todoaction t2 ON t1.id = t2.todoaction_id WHERE t2.user_id = ?',
+		$todoactions = DB::select('SELECT t1.id, t1.label, t1.todolist_id, t1.status_id, t1.updated_at FROM todoactions t1 INNER JOIN user_todoaction t2 ON t1.id = t2.todoaction_id WHERE t2.user_id = ?',
 				[$user_id]);
 		
 		foreach ($todoactions as $todoaction)
 		{			
 			$todoaction->status = DB::select('SELECT label from statuses where id = ?', [$todoaction->status_id]);
+			
+			$todoaction->todolist = DB::select('SELECT label from todolists where id = ?', [$todoaction->todolist_id]);
 			
 			$userlist = DB::select('SELECT t1.name FROM users t1 INNER JOIN user_todoaction t2 ON t1.id = t2.user_id WHERE t2.todoaction_id = ?',
 					[$todoaction->id]);
@@ -87,8 +91,8 @@ class TodoactionsController extends Controller
 	 */
 	public function store(TodoactionRequest $request)
 	{
-		DB::insert('insert into todoactions (label, todolist_id) values (?,?)',
-				[$request->input('label'), $request->input('todolist_id')]);
+		DB::insert('insert into todoactions (label, todolist_id, created_at, updated_at) values (?,?,?,?)',
+				[$request->input('label'), $request->input('todolist_id'), now(), now()]);
 		
 		DB::insert('insert into user_todoaction (user_id, todoaction_id) values (?,?)',
 				[$request->input('user_id'), DB::getPdo()->lastInsertId()]);

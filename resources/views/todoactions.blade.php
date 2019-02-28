@@ -32,7 +32,27 @@
                 					<button type="submit" class="badge badge-pill badge-secondary pt-1 pr-1">X</button>
                 				</div>
 								<div class="card-body">
-									<p class="text-center">{{ $todoaction->status[0]->label }}</p>
+									<p class="text-center">Todolist : <a href="{{ route('show_todolist_detail', ['todolist_id' => $todoaction->todolist_id]) }}">{{ $todoaction->todolist[0]->label }}</a></p>
+									<p class="text-center">Status : </p>
+									<select class="form-control form-control-sm">
+										<option value="{{ $todoaction->status_id }}" selected>{{ $todoaction->status[0]->label }}</option>
+										@for($i = 1; $i <= 4; $i++)
+											@if($i != $todoaction->status_id)
+												@if($i == 1)
+													<option value="1">A faire</option>
+												@endif
+												@if($i == 2)
+												<option value="2">En cours</option>
+												@endif
+												@if($i == 3)
+												<option value="3">Achevé</option>
+												@endif
+												@if($i == 4)
+												<option value="4">Archivé</option>
+												@endif
+											@endif
+										@endfor
+									</select>
 									<ul>
 										@foreach ($todoaction->users as $user)
 											<li>{{ $user->name }}</li>

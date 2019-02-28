@@ -59,8 +59,8 @@ class TodolistsController extends Controller
 	 */
 	public function store(TodolistRequest $request)
 	{
-		DB::insert('insert into todolists (label) values (?)',
-				[$request->input('label')]);
+		DB::insert('insert into todolists (label, created_at, updated_at) values (?,?,?)',
+				[$request->input('label'), now(), now()]);
 		
 		DB::insert('insert into user_todolist (user_id, todolist_id) values (?,?)',
 				[$request->input('user_id'), DB::getPdo()->lastInsertId()]);
