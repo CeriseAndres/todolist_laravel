@@ -67,6 +67,7 @@
 										@endforeach
 									</ul>
 								</div>
+
 								<button type="button" class="btn btn-outline-info btn-sm mx-2"><a href="{{ route('show_todolist_detail', ['todolist_id' => $todolist->id]) }}">Détail</a></button>
 								<button type="button" class="btn btn-outline-secondary btn-sm mx-2 mt-1" data-toggle="modal" data-target="#exampleModal">Modifier</button>
 
@@ -110,7 +111,10 @@
     </div>
   </div>
 </div>
-								<small class="text-center">Dernière MAJ {{ $todolist->updated_at }}</small>
+
+								<a href="{{ route('show_todolist_detail', ['todolist_id' => $todolist->id]) }}"><button type="button" class="btn btn-outline-info mx-2">Détail</button></a>
+								<small class="text-center">Dernière MAJ {{ Carbon\Carbon::parse($todolist->updated_at)->format('d-m-Y à H:i:s') }}</small>
+
 							</div>
                     	</div>
                     	@endforeach

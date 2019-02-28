@@ -35,4 +35,3 @@ Route::get('mes-taches/{id}', 'TodoactionsController@todolistIndex')->middleware
 Route::post('mes-tâches/{id}', 'TodoactionsController@store')->middleware('auth')->name('add_todoaction');
 Route::get('toutes-mes-taches/{id}', 'TodoactionsController@userIndex')->middleware('auth')->name('show_todoactions');
 
-

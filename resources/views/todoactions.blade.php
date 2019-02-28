@@ -61,7 +61,7 @@
 									</ul>
 								</div>
 								<button type="button" class="btn btn-outline-info mx-2">Détail</button>
-								<small class="text-center">Dernière MAJ {{ $todoaction->updated_at }}</small>
+								<small class="text-center">Dernière MAJ {{ Carbon\Carbon::parse($todoaction->updated_at)->format('d-m-Y à H:i:s') }}</small>
 							</div>
                     	</div>
                     	@endforeach
