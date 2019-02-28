@@ -7,6 +7,8 @@ use App\Http\Controllers\StatusesController;
 use App\User;
 use App\Status;
 use Illuminate\Support\Facades\DB;
+use App\Todoaction;
+use App\Http\Requests\TodoactionRequest;
 
 class TodoactionsController extends Controller
 {
@@ -85,12 +87,12 @@ class TodoactionsController extends Controller
 	 */
 	public function store(TodoactionRequest $request)
 	{
-		$status_id = StatusesController::getId($request->input('status'));
-		DB::insert('insert into todoactions (label, todolist_id, status_id) values (?,?,?)',
-				[$request->input('label'), $request->input('todolist_id'), $status_id]);
-		DB::insert('insert into user_todoaction (user_id, todolist_id) values (?,?)',
+		DB::insert('insert into todoactions (label, todolist_id) values (?,?)',
+				[$request->input('label'), $request->input('todolist_id')]);
+		
+		DB::insert('insert into user_todoaction (user_id, todoaction_id) values (?,?)',
 				[$request->input('user_id'), DB::getPdo()->lastInsertId()]);
-		return view('xxxxxxxxxxxxxxxx')->with('label', $request->input('label'));
+		return back()->with('add-ok', __('La tâche '.$request->input('label').' a bien été ajoutée'));
 	}
 	
 	/**
@@ -139,9 +141,13 @@ class TodoactionsController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy($id)
+	public function destroy(Todoaction $todoaction)
 	{
-		DB::table('todoactions')->where('id', $id)->delete();
+		DB::table('user_todoaction')->where('todoaction_id', $todoaction->id)->delete();
+		
+		$todoaction->delete();
+		
+		return back()->with(['del-ok'=> __('La tâche '.$todoaction->label.' a bien été supprimée')]);
 		
 	}
 }

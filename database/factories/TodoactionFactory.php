@@ -15,7 +15,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Todoaction::class, function (Faker $faker) {
     return [
-        'label' => str_random(10),
+        'label' => 'task '.str_random(10),
     	'todolist_id' => rand(1, 20),
     ];
 });

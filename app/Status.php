@@ -11,11 +11,11 @@ class Status extends Model
         'label',
     ];
     
-    public function __construct ($id)
-    {
-    	$this->id = $id;
-    	$this->label = $this->getLabel();
-    }
+//     public function __construct ($id)
+//     {
+//     	$this->id = $id;
+//     	$this->label = $this->getLabel();
+//     }
     
     public function todoactions()
     {

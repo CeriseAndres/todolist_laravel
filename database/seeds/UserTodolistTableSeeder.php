@@ -11,10 +11,10 @@ class UserTodolistTableSeeder extends Seeder
      */
     public function run()
     {
-    	for ($i = 0; $i < 20; $i++)
+    	for ($i = 1; $i < 20; $i++)
     	{
     		DB::table('user_todolist')->insert([
-    				'user_id' => rand(1,20),
+    				'user_id' => $i,
     				'todolist_id' => rand(1,20),
     		]);
     	}

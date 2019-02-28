@@ -11,6 +11,6 @@ class TodoactionsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory ( App\Todoaction::class, 20)->create ();
+        factory ( App\Todoaction::class, 50)->create ();
     }
 }

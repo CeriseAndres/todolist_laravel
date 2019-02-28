@@ -18,6 +18,7 @@ class CreateUserTodolistTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('todolist_id')->unsigned();
             $table->timestamps();
+            $table->unique(['user_id', 'todolist_id']);
         });
     }
 

@@ -31,7 +31,8 @@ Route::post('mes-listes/{id}', 'TodolistsController@store')->middleware('auth')-
 //Essai Destroy par Api :{
 Route::namespace('Api')->get('api/users/{user}/destroy', 'Api\UserController@destroyForm');
 
+Route::get('mes-taches/{id}', 'TodoactionsController@todolistIndex')->middleware('auth')->name('show_todolist_detail');
+Route::post('mes-tâches/{id}', 'TodoactionsController@store')->middleware('auth')->name('add_todoaction');
+Route::get('toutes-mes-taches/{id}', 'TodoactionsController@userIndex')->middleware('auth')->name('show_todoactions');
 
-Route::get('mes-taches/{id}', 'TodoactionsController@todolistIndex')->name('show_todolist_detail');
-Route::get('toutes-mes-taches/{id}', 'TodoactionsController@userIndex')->name('show_todoactions');
 
