@@ -62,9 +62,8 @@
                                     <a class="dropdown-item" href="{{ route('show_todoactions', ['id' => Auth::id() ]) }}">
                                         {{ __('Mes Tâches') }}
                                     </a>
-                                	<a class="dropdown-item" href="{{ route('home') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('profil-form').submit();">
+                                	<a class="dropdown-item" href="{{ route('users.edit', ['id' => Auth::id() ]) }}">
+                                       
                                         {{ __('Profil') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"

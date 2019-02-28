@@ -72,7 +72,7 @@ class UsersController extends Controller
 	 */
 	public function edit($id)
 	{
-		return view('updateRegistration');
+		return view('userProfile');
 	}
 	
 	/**
@@ -84,12 +84,12 @@ class UsersController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
-		DB::table('users')->where('id', $id)->update([
-				'name' => $request->input('firstName').' '.$request->input('lastName'),
+		$user = DB::table('users')->where('id', $id)->update([
+				'name' => $request->input('name'),
 				'email' => $request->input('email'),
 				'password' => $request->input('password')
 		]);
-		return view('validatedRegistrationUpdate')->with('name', $request->input('firstName').' '.$request->input('lastName'));
+		return back()->with(['user' => $user, 'update-ok'=> __('Utilisateur '.$request->input('name').' a bien été mis à jour')]);
 	}
 	
 	/**
