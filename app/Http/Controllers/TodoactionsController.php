@@ -139,6 +139,15 @@ class TodoactionsController extends Controller
 		return back()->with(['update-ok'=> __('La tâche '.$request->input('label').' a bien été mise à jour')]);
 	}
 	
+	public function updateStatus(Request $request, $id)
+	{
+		DB::table('todoactions')->where('id', $id)->update([
+				'status_id' => $request->input('status_id'),
+				'updated_at' => now()
+		]);
+		return back()->with(['update-ok'=> __('La tâche '.$request->input('label').' a bien été mise à jour')]);
+	}
+	
 	/**
 	 * Remove the specified resource from storage.
 	 *

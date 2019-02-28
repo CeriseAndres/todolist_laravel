@@ -42,7 +42,10 @@
 								</div>
 								<div class="card-body">
 									<p class="text-center">Status : </p>
-									<select class="form-control form-control-sm">
+									<form action="{{ route('updateStatus', ['id' => $todoaction->id]) }}" method="POST">
+									@csrf
+                        			{{ method_field('put') }}
+									<select class="form-control form-control-sm" name="status_id" id="status_select" onchange="this.form.submit()">
 										<option value="{{ $todoaction->status_id }}" selected>{{ $todoaction->status[0]->label }}</option>
 										@for($i = 1; $i <= 4; $i++)
 											@if($i != $todoaction->status_id)
@@ -61,6 +64,7 @@
 											@endif
 										@endfor
 									</select>
+									</form>
 									<ul>
 										@foreach ($todoaction->users as $user)
 											<li>{{ $user->name }}</li>
