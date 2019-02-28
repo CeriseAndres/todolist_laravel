@@ -26,7 +26,7 @@
     	<div class="col-md-11">
     		<div class="card">
                 
-                <div class="card-header"><a href="#" class="badge badge-pill badge-secondary pt-1 pr-1">	&lt;</a>Commentaires pour la tâche {{ $todoaction_label[0]->label }}</div>                
+                <div class="card-header"><a href="{{ route('show_todolist_detail', ['id' => $todolist_id[0]->todolist_id]) }}" class="badge badge-pill badge-secondary pt-1 pr-1">	&lt;</a>Commentaires pour la tâche {{ $todoaction_label[0]->label }}</div>                
 
                 <div class="card-body">
                     
@@ -99,7 +99,31 @@
 							</tr>
 						@endforeach
 						</tbody>
-					</table>                                       
+					</table>
+					<form method="POST" action="{{ route('comments.store') }}">
+    	             	@csrf
+						<div class="form-group row">
+                       		<label for="label" class="col-md-12 col-form-label text-md-center">Message</label>
+                       		<div class="col-md-12">
+                           		<textarea id="label" type="text" class="form-control{{ $errors->has('text') ? ' is-invalid' : '' }}" name="text" value="{{ old('text') }}" required></textarea>
+                              	@if ($errors->has('text'))
+                                <span class="invalid-feedback" role="alert">
+                                  	<strong>{{ $errors->first('text') }}</strong>
+                                </span>
+                               	@endif
+                       		</div>
+                   		</div>
+                        
+                   		<input type="hidden" class="form-control{{ $errors->has('todoaction_id') ? ' is-invalid' : '' }}" name="todoaction_id" value="{{ $todoaction_id }}">
+                   		<input type="hidden" class="form-control{{ $errors->has('user_id') ? ' is-invalid' : '' }}" name="user_id" value="{{ Auth::id() }}">
+              			<div class="form-group row mb-0 justify-content-center">
+                			<div class="col-md-12">
+                				<button type="submit" class="btn btn-block btn-outline-info m-2">
+                   					Ajouter
+                				</button>
+                			</div>
+               			</div>
+              		</form>                                       
                 </div>
             </div>
         </div>

@@ -43,6 +43,7 @@ class CommentsController extends Controller
 		$comments = DB::table('comments')->where('todoaction_id', $todoaction_id)->get();
 		
 		$todoaction_label = DB::select('SELECT label from todoactions where id = ?', [$todoaction_id]);
+		$todolist_id = DB::select('SELECT todolist_id from todoactions where id = ?', [$todoaction_id]);
 		
 		foreach ($comments as $comment)
 		{
@@ -51,7 +52,7 @@ class CommentsController extends Controller
 			$comment->user = $user;
 			
 		}
-		return view('todoaction_comments')->with(['comments' => $comments, 'todoaction_label' => $todoaction_label]);
+		return view('todoaction_comments')->with(['comments' => $comments, 'todoaction_id' => $todoaction_id, 'todoaction_label' => $todoaction_label, 'todolist_id' => $todolist_id]);
 	}
 	
 	/**
@@ -72,9 +73,10 @@ class CommentsController extends Controller
 	 */
 	public function store(CommentRequest $request)
 	{
-		DB::insert('insert into comments (text,user_id,todoaction_id) values (?,?,?)',
-				[$request->input('text'), $request->input('user_id'), $request->input('todoaction_id')]);
-		//return view('xxxxxxxxxxxxxxxxxxxx')->with('xxxxx', );
+		DB::insert('insert into comments (text,user_id,todoaction_id,created_at,updated_at) values (?,?,?,?,?)',
+				[$request->input('text'), $request->input('user_id'), $request->input('todoaction_id'), now(), now()]);
+		
+		return back()->with('add-ok', __('Le commentaire n° '.DB::getPdo()->lastInsertId().' a bien été ajouté'));
 	}
 	
 	/**
