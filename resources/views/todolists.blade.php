@@ -59,7 +59,7 @@
 									</ul>
 								</div>
 								<a href="{{ route('show_todolist_detail', ['todolist_id' => $todolist->id]) }}"><button type="button" class="btn btn-outline-info mx-2">Détail</button></a>
-								<small class="text-center">Dernière MAJ {{ $todolist->updated_at }}</small>
+								<small class="text-center">Dernière MAJ {{ Carbon\Carbon::parse($todolist->updated_at)->format('d-m-Y à H:i:s') }}</small>
 							</div>
                     	</div>
                     	@endforeach

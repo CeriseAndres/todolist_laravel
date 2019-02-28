@@ -20,6 +20,7 @@
             <h2>Mise à jour du profil</h2>
         </div>
         <div class="col-lg-8 push-lg-4 personal-info">
+        	<small class="text-center">Dernière MAJ {{ Carbon\Carbon::parse(Auth::user()->updated_at)->format('d-m-Y à H:i:s') }}</small>
              <form action="{{ route('users.update', ['id' => Auth::id()]) }}" method="post">
  	            {{ csrf_field() }}
             	{{ method_field('PUT') }}
@@ -62,13 +63,12 @@
             </form>
         </div>
         <div class="col-lg-4 pull-lg-8 text-xs-center">
-                <img src="//placehold.it/150" class="m-x-auto img-fluid img-circle" alt="avatar" />
-                <h6 class="m-t-2">Changer avatar</h6>
-                <label class="custom-file">
-                  <input type="file" id="file" class="custom-file-input">
-                  <span class="custom-file-control">Choisir un fichier</span>
-                </label>
-                <input type="button" class="btn btn-primary" value="Supprimer compte utilisateur" />
+            <form action="{{ route('users.destroy', ['id' => Auth::id()]) }}" method="post">
+				<input type="hidden" name="label" value="{{ Auth::user() }}">
+				{{ method_field('delete') }}
+				@csrf
+				<button type="submit" class="btn btn-warning">Supprimer utilisateur</button>
+			</form>
         </div>
     </div>
 </div>

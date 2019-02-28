@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Todolist;
 use Illuminate\Support\Facades\DB;
@@ -87,9 +88,10 @@ class UsersController extends Controller
 		$user = DB::table('users')->where('id', $id)->update([
 				'name' => $request->input('name'),
 				'email' => $request->input('email'),
-				'password' => $request->input('password')
+		    'password' => bcrypt($request->input('password')),
+		    'updated_at' => now()
 		]);
-		return back()->with(['user' => $user, 'update-ok'=> __('Utilisateur '.$request->input('name').' a bien été mis à jour')]);
+		return back()->with(['user' => $user, 'update-ok'=> __('L\'utilisateur '.$request->input('name').' a bien été mis à jour')]);
 	}
 	
 	/**
@@ -99,8 +101,11 @@ class UsersController extends Controller
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy($id)
-	{
+	{  
+	    DB::table('user_todolist')->where('user_id', $id)->delete();
+	    DB::table('user_todoaction')->where('user_id', $id)->delete();
 		DB::table('users')->where('id', $id)->delete();
+		return view('auth/register');
 		
 	}
 }
