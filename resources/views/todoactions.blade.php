@@ -67,9 +67,17 @@
 										@endfor
 									</select>
 									</form>
+									<p class="text-center mt-2">Utilisateurs : </p>
 									<ul>
 										@foreach ($todoaction->users as $user)
-											<li>{{ $user->name }}</li>
+											<li>{{ $user->name }}
+												<form action="{{ route('todoactionsUserDestroy', ['id' => $todoaction->id]) }}" method="post">
+                									<input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                									{{ method_field('delete') }}
+                									@csrf
+                									<button type="submit" class="badge badge-pill badge-secondary pt-1 pr-1">X</button>
+                								</form>
+											</li>											
 										@endforeach
 									</ul>
 								</div>

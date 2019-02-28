@@ -35,6 +35,7 @@ Route::get('mes-taches/{id}', 'TodoactionsController@todolistIndex')->middleware
 Route::post('mes-tâches/{id}', 'TodoactionsController@store')->middleware('auth')->name('add_todoaction');
 Route::put('mes-taches/{id}', 'TodoactionsController@updateStatus')->middleware('auth')->name('updateStatusBis');
 Route::put('toutes-mes-taches/{id}', 'TodoactionsController@updateStatus')->middleware('auth')->name('updateStatus');
+Route::delete('toutes-mes-taches/{id}', 'TodoactionsController@deleteUser')->middleware('auth')->name('todoactionsUserDestroy');
 Route::get('toutes-mes-taches/{id}', 'TodoactionsController@userIndex')->middleware('auth')->name('show_todoactions');
 
 Route::get('tous-mes-commentaires/{id}', 'CommentsController@userIndex')->middleware('auth')->name('show_comments');
