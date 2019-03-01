@@ -26,7 +26,7 @@
     	<div class="col-md-11">
     		<div class="card">
                 <div class="card-header">
-                	<span>{{ $todolist_label[0]->label }}</span>
+                	<span>Tâche : {{ $todolist_label[0]->label }}</span>
                 	<a href="{{ route('show_todolists', ['id' => Auth::id()]) }}" class="badge badge-pill badge-secondary pt-1 pr-1 float-right mt-1">	&lt;</a>
                 </div>
                 <div class="card-body">

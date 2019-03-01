@@ -105,6 +105,7 @@ class UsersController extends Controller
 	    DB::table('user_todolist')->where('user_id', $id)->delete();
 	    DB::table('user_todoaction')->where('user_id', $id)->delete();
 		DB::table('users')->where('id', $id)->delete();
+		\Auth::logout();
 		return view('auth/register');
 		
 	}

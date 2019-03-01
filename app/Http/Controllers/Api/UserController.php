@@ -67,8 +67,11 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
-        return 'Utilisateur supprimé !';
+    	DB::table('comments')->where('user_id', $id)->delete();
+    	DB::table('user_todolist')->where('user_id', $id)->delete();
+    	DB::table('user_todoaction')->where('user_id', $id)->delete();
+    	DB::table('users')->where('id', $id)->delete();
+    	return route('logout');
     }
     
     public function destroyForm(User $user)
