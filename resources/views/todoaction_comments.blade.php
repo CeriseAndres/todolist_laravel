@@ -121,7 +121,7 @@
                    		<input type="hidden" class="form-control{{ $errors->has('user_id') ? ' is-invalid' : '' }}" name="user_id" value="{{ Auth::id() }}">
               			<div class="form-group row mb-0 justify-content-center">
                 			<div class="col-md-12">
-                				<button type="submit" class="btn btn-block btn-outline-info m-2">
+                				<button type="submit" class="btn btn-block btn-outline-info">
                    					Ajouter
                 				</button>
                 			</div>
