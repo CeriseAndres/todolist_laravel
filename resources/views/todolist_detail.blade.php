@@ -25,15 +25,19 @@
     <div class="row justify-content-center">
     	<div class="col-md-11">
     		<div class="card">
-                <div class="card-header"><a href="{{ route('show_todolists', ['id' => Auth::id()]) }}" class="badge badge-pill badge-secondary pt-1 pr-1">	&lt;</a>{{ $todolist_label[0]->label }}</div>
+                <div class="card-header">
+                	<span>{{ $todolist_label[0]->label }}</span>
+                	<a href="{{ route('show_todolists', ['id' => Auth::id()]) }}" class="badge badge-pill badge-secondary pt-1 pr-1 float-right mt-1">	&lt;</a>
+                </div>
                 <div class="card-body">
                     
                     <div class="row justify-content-around">
                     	@foreach ($todoactions as $todoaction)
                     	<div class="col-md-3">
                     		<div class="card mb-3">
-                				<div class="card-header">{{ $todoaction->label }}
-									<form action="{{ route('todoactions.destroy', ['todoaction_id' => $todoaction->id]) }}" method="post">
+                				<div class="card-header">
+                					<span>{{ $todoaction->label }}</span>
+									<form class="float-right" action="{{ route('todoactions.destroy', ['todoaction_id' => $todoaction->id]) }}" method="post">
                 						<input type="hidden" name="label" value="{{ $todoaction->label }}">
                 						{{ method_field('delete') }}
                 						@csrf
@@ -66,14 +70,15 @@
 									</select>
 									</form>
 									<p class="text-center mt-2">Utilisateurs : </p>
-									<ul>
+									<ul class="list-group list-group-flush">
 										@foreach ($todoaction->users as $user)
-											<li>{{ $user->name }}
-												<form action="{{ route('todoactionsUserDestroy', ['id' => $todoaction->id]) }}" method="post">
+											<li class="list-group-item">
+												<span><small>{{ $user->name }}</small></span>
+												<form class="float-right" action="{{ route('todoactionsUserDestroy', ['id' => $todoaction->id]) }}" method="post">
                 									<input type="hidden" name="user_id" value="{{ Auth::id() }}">
                 									{{ method_field('delete') }}
                 									@csrf
-                									<button type="submit" class="badge badge-pill badge-secondary pt-1 pr-1">X</button>
+                									<button type="submit" class="badge badge-pill badge-secondary">x</button>
                 								</form>
 											</li>
 										@endforeach
@@ -114,7 +119,7 @@
                                 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                             						</div>
                             						<div class="col-md-6">
-                                						<button type="submit" class="btn btn-primary">Enregistrer</button>
+                                						<button type="submit" class="btn btn-primary float-right">Enregistrer</button>
                             						</div>
                         						</div>
                     						</form>
@@ -151,8 +156,8 @@
                         					<input type="hidden" class="form-control{{ $errors->has('todolist_id') ? ' is-invalid' : '' }}" name="todolist_id" value="{{ $todolist_id }}">
 
                         					<div class="form-group row mb-0">
-                            					<div class="col-md-12 offset-md-4">
-                                					<button type="submit" class="btn btn-outline-info m-2">
+                            					<div class="col-md-12">
+                                					<button type="submit" class="btn btn-block btn-sm btn-outline-success m-auto">
                                     					Ajouter
                                 					</button>
                             					</div>

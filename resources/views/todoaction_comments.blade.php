@@ -26,7 +26,10 @@
     	<div class="col-md-11">
     		<div class="card">
                 
-                <div class="card-header"><a href="{{ route('show_todolist_detail', ['id' => $todolist_id[0]->todolist_id]) }}" class="badge badge-pill badge-secondary pt-1 pr-1">	&lt;</a>Commentaires pour la tâche {{ $todoaction_label[0]->label }}</div>                
+                <div class="card-header">
+                	<span>Commentaires pour la tâche {{ $todoaction_label[0]->label }}</span>
+                	<a href="{{ route('show_todolist_detail', ['id' => $todolist_id[0]->todolist_id]) }}" class="badge badge-pill badge-secondary pt-1 pr-1 float-right mt-1">	&lt;</a>
+                </div>                
 
                 <div class="card-body">
                     
@@ -45,7 +48,7 @@
 							<tr>
 								<th scope="row">{{ $comment->user[0]->name }}</th>
 								<td>{{ $comment->text }}</td>
-								<td>{{ $comment->updated_at }}</td>
+								<td><small>{{ Carbon\Carbon::parse($comment->updated_at)->format('d-m-Y à H:i:s') }}</small></td>
 								<td>
 									<button type="button" class="btn btn-outline-secondary btn-sm mx-2" data-toggle="modal" data-target="#exampleModal{{ $comment->id }}">Modifier</button>
 								<!-- Modal -->
@@ -80,7 +83,7 @@
                                 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                             						</div>
                             						<div class="col-md-6">
-                                						<button type="submit" class="btn btn-primary">Enregistrer</button>
+                                						<button type="submit" class="btn btn-primary float-right">Enregistrer</button>
                             						</div>
                         						</div>
                     						</form>

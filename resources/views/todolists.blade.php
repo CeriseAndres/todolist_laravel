@@ -50,9 +50,10 @@
                     	@foreach ($todolists as $todolist)
                     	<div class="col-md-3">
                     		<div class="card mb-3">
-                				<div class="card-header">{{ $todolist->label }}
+                				<div class="card-header">
+                				<span>{{ $todolist->label }}</span>
                 				
-                				<form action="{{ route('todolists.destroy', ['todolist_id' => $todolist->id]) }}" method="post">
+                				<form class="float-right" action="{{ route('todolists.destroy', ['todolist_id' => $todolist->id]) }}" method="post">
                 					<input type="hidden" name="label" value="{{ $todolist->label }}">
                 					{{ method_field('delete') }}
                 					@csrf
@@ -62,14 +63,15 @@
                 				</div>
 								<div class="card-body">
 									<p class="text-center mt-2">Utilisateurs : </p>
-									<ul>
+									<ul class="list-group list-group-flush">
 										@foreach($todolist->users as $user)
-											<li>{{ $user->name }}
-												<form action="{{ route('todolistsUserDestroy', ['id' => $todolist->id]) }}" method="post">
+											<li class="list-group-item">
+												<span><small>{{ $user->name }}</small></span>
+												<form class="float-right" action="{{ route('todolistsUserDestroy', ['id' => $todolist->id]) }}" method="post">
                 									<input type="hidden" name="user_id" value="{{ Auth::id() }}">
                 									{{ method_field('delete') }}
                 									@csrf
-                									<button type="submit" class="badge badge-pill badge-secondary pt-1 pr-1">X</button>
+                									<button type="submit" class="badge badge-pill badge-secondary">x</button>
                 								</form>
 											</li>
 										@endforeach
@@ -109,7 +111,7 @@
                                 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                             						</div>
                             						<div class="col-md-6">
-                                						<button type="submit" class="btn btn-primary">Enregistrer</button>
+                                						<button type="submit" class="btn btn-primary float-right">Enregistrer</button>
                             						</div>
                         						</div>
                     						</form>
@@ -146,7 +148,7 @@
 
                         					<div class="form-group row mb-0 justify-content-center">
                             					<div class="col-md-12">
-                                					<button type="submit" class="btn btn-sm btn-outline-info m-2">
+                                					<button type="submit" class="btn btn-block btn-sm btn-outline-success m-auto">
                                     					Ajouter
                                 					</button>
                             					</div>

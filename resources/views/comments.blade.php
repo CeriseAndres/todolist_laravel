@@ -44,7 +44,7 @@
 							<tr>
 								<th scope="row">{{ $comment->todoaction[0]->label }}</th>
 								<td>{{ $comment->text }}</td>
-								<td>{{ $comment->updated_at }}</td>
+								<td><small>{{ Carbon\Carbon::parse($comment->updated_at)->format('d-m-Y à H:i:s') }}</small></td>
 								<td>
 									<button type="button" class="btn btn-outline-secondary btn-sm mx-2" data-toggle="modal" data-target="#exampleModal{{ $comment->id }}">Modifier</button>
 								<!-- Modal -->
@@ -79,7 +79,7 @@
                                 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                             						</div>
                             						<div class="col-md-6">
-                                						<button type="submit" class="btn btn-primary">Enregistrer</button>
+                                						<button type="submit" class="btn btn-primary float-right">Enregistrer</button>
                             						</div>
                         						</div>
                     						</form>

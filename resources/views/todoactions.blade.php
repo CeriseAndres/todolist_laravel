@@ -33,8 +33,9 @@
                     	@foreach ($todoactions as $todoaction)
                     	<div class="col-md-3">
                     		<div class="card mb-3">
-                				<div class="card-header">{{ $todoaction->label }}
-                					<form action="{{ route('todoactions.destroy', ['todoaction_id' => $todoaction->id]) }}" method="post">
+                				<div class="card-header">
+                					<span>{{ $todoaction->label }}</span>
+                					<form class="float-right" action="{{ route('todoactions.destroy', ['todoaction_id' => $todoaction->id]) }}" method="post">
                 						<input type="hidden" name="label" value="{{ $todoaction->label }}">
                 						{{ method_field('delete') }}
                 						@csrf
@@ -42,7 +43,8 @@
                 					</form>
                 				</div>
 								<div class="card-body">
-									<p class="text-center">Todolist : <a href="{{ route('show_todolist_detail', ['todolist_id' => $todoaction->todolist_id]) }}">{{ $todoaction->todolist[0]->label }}</a></p>
+									<p class="text-center">Todolist :</p>
+									<p class="text-center"><a href="{{ route('show_todolist_detail', ['todolist_id' => $todoaction->todolist_id]) }}">{{ $todoaction->todolist[0]->label }}</a></p>
 									<p class="text-center">Status : </p>
 									<form action="{{ route('updateStatus', ['id' => $todoaction->id]) }}" method="POST">
 									@csrf
@@ -68,14 +70,15 @@
 									</select>
 									</form>
 									<p class="text-center mt-2">Utilisateurs : </p>
-									<ul>
+									<ul class="list-group list-group-flush">
 										@foreach ($todoaction->users as $user)
-											<li>{{ $user->name }}
-												<form action="{{ route('todoactionsUserDestroy', ['id' => $todoaction->id]) }}" method="post">
+											<li class="list-group-item">
+												<span><small>{{ $user->name }}</small></span>
+												<form class="float-right" action="{{ route('todoactionsUserDestroy', ['id' => $todoaction->id]) }}" method="post">
                 									<input type="hidden" name="user_id" value="{{ Auth::id() }}">
                 									{{ method_field('delete') }}
                 									@csrf
-                									<button type="submit" class="badge badge-pill badge-secondary pt-1 pr-1">X</button>
+                									<button type="submit" class="badge badge-pill badge-secondary">x</button>
                 								</form>
 											</li>											
 										@endforeach
@@ -115,7 +118,7 @@
                                 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                             						</div>
                             						<div class="col-md-6">
-                                						<button type="submit" class="btn btn-primary">Enregistrer</button>
+                                						<button type="submit" class="btn btn-primary float-right">Enregistrer</button>
                             						</div>
                         						</div>
                     						</form>
@@ -123,7 +126,7 @@
 									</div>
 								</div>
 							</div>
-								<small class="text-center">Dernière MAJ {{ $todoaction->updated_at }}</small>
+								<small class="text-center">Dernière MAJ {{ Carbon\Carbon::parse($todoaction->updated_at)->format('d-m-Y à H:i:s') }}</small>
 							</div>
                     	</div>
                     	@endforeach
